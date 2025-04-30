@@ -1,4 +1,5 @@
 import heroImage from "../assets/hero-notext2.jpg";
+import mobileHeroImage from "../assets/mobile-hero.jpg";
 
 const Hero = () => {
   return (
@@ -18,7 +19,7 @@ const Hero = () => {
       </section>
       <section
         className='w-full h-screen bg-cover bg-center flex items-center -mt-[15%] sm:hidden block '
-        style={{ backgroundImage: "url('/src/assets/mobile-hero.jpg')" }}
+        style={{ backgroundImage: `url(${mobileHeroImage})` }}
       >
         <div className='max-w-6xl px-6 text-white mx-auto -mt-[20rem]'>
           <h1 className='text-4xl text-center md:text-6xl font-bold leading-tight drop-shadow-lg'>

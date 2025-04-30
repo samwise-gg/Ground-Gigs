@@ -1,28 +1,34 @@
-import { motion } from 'framer-motion'
 const Hero = () => {
   return (
-    <section className="px-6 py-20 bg-black text-white">
-      <motion.div 
-        className="max-w-6xl mx-auto flex flex-col md:flex-row items-center"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
+    <>
+      <section
+        className='w-full h-screen bg-cover bg-center flex items-center -mt-60 sm:block hidden'
+        style={{ backgroundImage: "url('/src/assets/hero-notext2.jpg')" }}
       >
-        <div className="flex-1">
-          <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-            Ground Gigs: Digital Solutions for Your Business
+        <div className='max-w-6xl px-6 text-white mx-[2%] md:ml-[10%] sm:ml-[5%] sm:pt-[24rem] lg:pt-[28rem] -pt-40'>
+          <h1 className='text-4xl md:text-6xl font-bold leading-tight drop-shadow-lg'>
+            Digital Solutions <br /> for Your Business
           </h1>
-          <p className="mt-4 text-lg text-gray-300">
-            We build sleek, modern websites to help small businesses thrive online.
+          <p className='mt-4 text-lg md:text-xl text-textSecondary max-w-xl drop-shadow-md'>
+            Creating custom websites to grow your online presence
           </p>
         </div>
-        <div className="flex-1 mt-10 md:mt-0 md:ml-10">
-          <img src="https://t3.ftcdn.net/jpg/05/63/38/74/360_F_563387459_buRasD88E9uG4TVuTnRjvUpZRp4KMU7x.jpg" 
-               alt="Developer at desk"
-               className="rounded-xl shadow-lg" />
+      </section>
+      <section
+        className='w-full h-screen bg-cover bg-center flex items-center -mt-[15%] sm:hidden block '
+        style={{ backgroundImage: "url('/src/assets/mobile-hero.jpg')" }}
+      >
+        <div className='max-w-6xl px-6 text-white mx-auto -mt-[20rem]'>
+          <h1 className='text-4xl text-center md:text-6xl font-bold leading-tight drop-shadow-lg'>
+            Digital Solutions <br /> for Your Business
+          </h1>
+          <p className='mt-4 text-lg text-center md:text-xl text-textSecondary max-w-xl drop-shadow-md'>
+            Creating custom websites to grow your online presence
+          </p>
         </div>
-      </motion.div>
-    </section>
-  )
-}
-export default Hero
+      </section>
+    </>
+  );
+};
+
+export default Hero;

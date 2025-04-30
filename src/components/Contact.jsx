@@ -1,21 +1,32 @@
-import { motion } from 'framer-motion'
-
-const Contact = () => {
+export default function Contact() {
   return (
-    <section className="py-20 px-6 bg-black text-white">
-      <motion.div 
-        className="max-w-4xl mx-auto text-center"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ duration: 0.6 }}
-      >
-        <h2 className="text-blue-400 text-sm font-semibold uppercase mb-4">Contact Us</h2>
-        <h3 className="text-3xl md:text-4xl font-bold mb-6">Let’s discuss your project</h3>
-        <button className="mt-4 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition">
-          Get in Touch
+    <div className='px-6 py-12 max-w-lg mx-auto bg-[#0b0f19]'>
+      <h2 className='text-3xl font-bold text-blue-400 mb-6 text-center'>
+        Contact Us
+      </h2>
+      <form className='space-y-4'>
+        <input
+          type='text'
+          placeholder='Name'
+          className='w-full p-3 rounded-xl bg-[#1a1a2e] text-white border border-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500'
+        />
+        <input
+          type='email'
+          placeholder='Email'
+          className='w-full p-3 rounded-xl bg-[#1a1a2e] text-white border border-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500'
+        />
+        <textarea
+          placeholder='Message'
+          rows='5'
+          className='w-full p-3 rounded-xl bg-[#1a1a2e] text-white border border-purple-700 focus:outline-none focus:ring-2 focus:ring-blue-500'
+        ></textarea>
+        <button
+          type='submit'
+          className='w-full bg-blue-500 hover:bg-purple-600 text-white py-3 rounded-xl font-semibold transition'
+        >
+          Send Message
         </button>
-      </motion.div>
-    </section>
-  )
+      </form>
+    </div>
+  );
 }
-export default Contact

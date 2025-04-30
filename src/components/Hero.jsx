@@ -1,9 +1,11 @@
+import heroImage from "../assets/hero-notext2.jpg";
+
 const Hero = () => {
   return (
     <>
       <section
         className='w-full h-screen bg-cover bg-center flex items-center -mt-60 sm:block hidden'
-        style={{ backgroundImage: "url('/src/assets/hero-notext2.jpg')" }}
+        style={{ backgroundImage: `url(${heroImage})` }}
       >
         <div className='max-w-6xl px-6 text-white mx-[2%] md:ml-[10%] sm:ml-[5%] sm:pt-[24rem] lg:pt-[28rem] -pt-40'>
           <h1 className='text-4xl md:text-6xl font-bold leading-tight drop-shadow-lg'>

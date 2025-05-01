@@ -22,7 +22,7 @@ const Hero = () => {
         style={{ backgroundImage: `url(${mobileHeroImage})` }}
       >
         <div className='max-w-6xl px-6 text-white mx-auto -mt-[20rem]'>
-          <h1 className='text-4xl text-center md:text-6xl font-bold leading-tight drop-shadow-lg'>
+          <h1 className='text-4xl text-center md:text-6xl font-bold leading-tight drop-shadow-lg mt-[115px]'>
             Digital Solutions <br /> for Your Business
           </h1>
           <p className='mt-4 text-lg text-center md:text-xl text-textSecondary max-w-xl drop-shadow-md'>

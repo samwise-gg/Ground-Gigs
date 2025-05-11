@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.jpg";
 import Contact from "./Contact";
+
 import { useEffect, useState, useRef } from "react";
 
 const Header = () => {
@@ -73,12 +74,11 @@ const Header = () => {
       <div className='container mx-auto p-4'>
         <nav className='flex justify-between items-center w-full'>
           <div className='flex items-center space-x-4 sm:space-x-6'>
-            <Link to='/' className='group transition-all duration-300'>
-              <img
-                src={logo}
-                alt='Ground Gigs'
-                className='h-[3.5rem] group-hover:animate-spin-once  transition-transform duration-500 ease-in-out'
-              />
+            <Link
+              to='/'
+              className='transition-all duration-300 hover:scale-105'
+            >
+              <img src={logo} alt='Ground Gigs' className='h-[3.5rem]' />
             </Link>
             <Link
               to='/services'
@@ -99,7 +99,7 @@ const Header = () => {
               <span className='block h-[2px] w-0 bg-[#0563ba] transition-all duration-300 group-hover:w-full'></span>
             </Link>
           </div>
-          <div className=''>
+          <div className='text-sm'>
             <div
               ref={containerRef}
               onMouseEnter={handleMouseEnter}
@@ -108,9 +108,10 @@ const Header = () => {
             >
               <button
                 onClick={() => setIsPinned((prev) => !prev)}
-                className='text-[#0563ba] font-bold hover:text-accent transition flex items-center gap-1 hover:scale-110 duration-100'
+                className='hover:text-accent transition flex items-center gap-1 hover:scale-105 duration-200'
               >
-                <i className='fa fa-envelope text-xl' aria-hidden='true'></i>
+                Contact{" "}
+                <i className='fa fa-envelope-o text-lg' aria-hidden='true'></i>
               </button>
 
               {isContactVisible && (

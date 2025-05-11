@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Hero from "../components/Hero";
-import Services from "./Services";
+import Services from "../components/ServicesCards";
 
 export default function Home() {
   return (
@@ -14,15 +14,17 @@ export default function Home() {
           Ground Gigs builds sleek, modern websites for small businesses. Fast,
           responsive, and built to convert.
         </p>
-        <Link to='/contact' className='hover:text-blue-600'>
-          <button className='bg-blue-700 hover:bg-purple-600 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition'>
+        <Link to='/contact'>
+          <button
+            aria-label='Contact Ground Gigs'
+            className='bg-blue-700 hover:bg-purple-600 text-white px-6 py-3 rounded-xl font-semibold shadow-md transition'
+          >
             Get Started
           </button>
         </Link>
       </section>
       <Services />
-      <br />
-      <br />
+      <div className='mb-24'></div>
     </>
   );
 }

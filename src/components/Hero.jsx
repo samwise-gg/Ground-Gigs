@@ -4,11 +4,12 @@ import mobileHeroImage from "../assets/mobile-hero.jpg";
 const Hero = () => {
   return (
     <>
+      {/* Desktop Hero */}
       <section
-        className='w-full h-screen bg-cover bg-center flex items-center -mt-60 sm:block hidden'
+        className='hidden md:block w-full h-[70vh] md:h-screen bg-cover bg-center text-white'
         style={{ backgroundImage: `url(${heroImage})` }}
       >
-        <div className='max-w-6xl px-6 text-white mx-[2%] md:ml-[10%] sm:ml-[5%] sm:pt-[24rem] lg:pt-[28rem] -pt-40'>
+        <div className='flex flex-col justify-center h-full px-6 md:pl-[10%] max-w-6xl mx-auto'>
           <h1 className='text-4xl md:text-6xl font-bold leading-tight drop-shadow-lg'>
             Digital Solutions <br /> for Your Business
           </h1>
@@ -17,15 +18,17 @@ const Hero = () => {
           </p>
         </div>
       </section>
+
+      {/* Mobile Hero */}
       <section
-        className='w-full h-screen bg-cover bg-center flex items-center -mt-[15%] sm:hidden block '
+        className='md:hidden w-full h-screen bg-cover bg-center text-white'
         style={{ backgroundImage: `url(${mobileHeroImage})` }}
       >
-        <div className='max-w-6xl px-6 text-white mx-auto -mt-[20rem]'>
-          <h1 className='text-4xl text-center md:text-6xl font-bold leading-tight drop-shadow-lg mt-[115px]'>
+        <div className='flex flex-col justify-start items-center text-center h-full pt-48 px-6 max-w-xl mx-auto'>
+          <h1 className='text-4xl font-bold leading-tight drop-shadow-lg'>
             Digital Solutions <br /> for Your Business
           </h1>
-          <p className='mt-4 text-lg text-center md:text-xl text-textSecondary max-w-xl drop-shadow-md'>
+          <p className='mt-4 text-lg text-textSecondary drop-shadow-md'>
             Creating custom websites to grow your online presence
           </p>
         </div>

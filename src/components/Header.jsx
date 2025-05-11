@@ -76,10 +76,17 @@ const Header = () => {
         bg-background text-white shadow-md`}
     >
       <div className=' p-4 container mx-auto flex justify-between items-center'>
+      <div className=' p-4 container m-auto flex justify-start items-stretch'>
         <Link to='/'>
           <img src={logo} alt='Ground Gigs' className='h-[4rem]' />
         </Link>
-
+        <Link to='/services'>
+          <div className='h-[4rem] ml-[15px] pt-[30%] text-[#0563ba] font-bold'>Services</div>
+        </Link>
+        <Link to='/about'>
+          <div className='h-[4rem] ml-[15px] pt-[40%] text-[#0563ba] font-bold'>About</div>
+        </Link>
+        </div>
         <nav className='space-x-4 text-sm'>
           <div
             ref={containerRef}

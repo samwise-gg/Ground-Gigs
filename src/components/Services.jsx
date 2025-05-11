@@ -19,7 +19,7 @@ const services = [
 
 const Services = () => {
   return (
-    <section className='py-20 px-6 bg-zinc-900 text-white'>
+    <section className='py-20  px-6 bg-zinc-900 text-white'>
       <div className='max-w-6xl mx-auto'>
         <h2 className='text-blue-400 text-sm font-bold uppercase mb-6'>
           Services

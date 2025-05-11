@@ -1,6 +1,6 @@
 export default function Services() {
   return (
-    <div className='px-6 py-12 max-w-5xl mx-auto'>
+    <div className='px-6 h-[91vh] pt-[150px] py-12 max-w-5xl mx-auto'>
       <h2 className='text-3xl font-bold text-blue-600 mb-8 text-center'>
         Our Services
       </h2>

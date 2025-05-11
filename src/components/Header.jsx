@@ -98,7 +98,7 @@ const Header = () => {
               onClick={() => setIsPinned((prev) => !prev)}
               className='hover:text-accent transition flex items-baseline'
             >
-              Contact Us&nbsp; &nbsp;
+              Contact &nbsp; &nbsp;
               <p className='text-lg'>
                 <i class='fa fa-envelope-o' aria-hidden='true'></i>
               </p>

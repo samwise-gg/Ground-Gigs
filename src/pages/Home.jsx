@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Hero from "../components/Hero";
-import Services from "../components/ServicesCards";
+import ServicesCards from "../components/ServicesCards";
 
 export default function Home() {
   return (
@@ -23,7 +23,7 @@ export default function Home() {
           </button>
         </Link>
       </section>
-      <Services />
+      <ServicesCards />
       <div className='mb-24'></div>
     </>
   );

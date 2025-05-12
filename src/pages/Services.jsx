@@ -1,26 +1,33 @@
+import ScrollScene from "../components/ScrollScene";
+import handshake from "../assets/scenes/handshake.gif";
+import wireframe from "../assets/scenes/wireframe.gif";
+import coding from "../assets/scenes/coding.gif";
+
 export default function Services() {
   return (
-    <div className='px-6 h-[91vh] pt-[150px] py-12 max-w-5xl mx-auto'>
-      <h2 className='text-3xl font-bold text-blue-600 mb-8 text-center'>
-        Our Services
-      </h2>
-      <div className='grid md:grid-cols-3 gap-6'>
-        {["Web Design", "Responsive Development", "SEO Optimization"].map(
-          (service, idx) => (
-            <div
-              key={idx}
-              className='bg-[#1a1a2e] p-6 rounded-2xl shadow-md border border-purple-700'
-            >
-              <h3 className='text-xl font-semibold text-purple-300 mb-2'>
-                {service}
-              </h3>
-              <p className='text-gray-400 text-sm'>
-                We craft solutions tailored to your business goals — fast,
-                responsive, and effective.
-              </p>
-            </div>
-          )
-        )}
+    <div className='relative'>
+      {/* Fixed Background Layer */}
+      <div className='fixed inset-0 z-0'>
+        <div className='w-full h-full bg-gradient-to-b from-[#00001f] to-[#172d6d] absolute inset-0'></div>
+      </div>
+
+      {/* Scrollable Foreground Scenes */}
+      <div className='relative z-10 text-white'>
+        <ScrollScene
+          title='It all starts with a conversation'
+          description='We begin by understanding your vision, your goals, and your audience.'
+          image={handshake}
+        />
+        <ScrollScene
+          title='We bring ideas to life'
+          description='Our team translates your goals into clean, strategic wireframes and layouts.'
+          image={wireframe}
+        />
+        <ScrollScene
+          title='We build and launch'
+          description='Through design, code, and optimization, we launch a site that grows your business.'
+          image={coding}
+        />
       </div>
     </div>
   );

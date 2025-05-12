@@ -24,16 +24,5 @@ export default {
       // },
     },
   },
-  safelist: [
-    {
-      // Keeps the custom purple shadow utility
-      pattern: /shadow-\[0_0_20px_rgba\(192,132,252,0\.6\)\]/,
-      variants: ["hover"],
-    },
-    {
-      // Also keep the same shadow for when it's applied directly (not just on hover)
-      pattern: /shadow-\[0_0_20px_rgba\(192,132,252,0\.6\)\]/,
-    },
-  ],
   plugins: [],
 };

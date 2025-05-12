@@ -53,7 +53,7 @@ function SortableCard({ service }) {
     bg-[#0b0f19] border border-purple-500 p-8 rounded-xl shadow-md transition-shadow
     ${
       isDragging
-        ? "shadow-[0_0_20px_rgba(192,132,252,0.6)] scale-110"
+        ? "shadow-[0_0_20px_rgba(192,132,252,0.6)]"
         : "hover:shadow-[0_0_20px_rgba(192,132,252,0.6)] hover:scale-105"
     }
     cursor-grab active:cursor-grabbing
@@ -105,6 +105,7 @@ export default function ServicesCards() {
           </div>
         </SortableContext>
       </DndContext>
+      <div className='hidden shadow-[0_0_20px_rgba(192,132,252,0.6)]'></div>
     </section>
   );
 }

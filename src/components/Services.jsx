@@ -1,44 +1,111 @@
-import { motion } from "framer-motion";
-const services = [
+import { useState } from "react";
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  useSortable,
+  rectSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+
+const initialServices = [
   {
-    icon: "🌐",
-    title: "Custom Websites",
-    desc: "Unique websites tailored to your brand and goals.",
+    id: "web",
+    icon: "💻",
+    title: "Web Design",
+    description:
+      "Custom-crafted websites that reflect your brand's identity, optimized for performance and user engagement.",
   },
   {
-    icon: "⚡",
-    title: "Responsive Design",
-    desc: "Looks great on any device or screen size.",
+    id: "responsive",
+    icon: "📱",
+    title: "Responsive Development",
+    description:
+      "Ensuring seamless experiences across all devices with mobile-first, fully responsive layouts.",
   },
   {
-    icon: "🛒",
-    title: "E-Commerce Solutions",
-    desc: "Online stores designed for growth and conversions.",
+    id: "seo",
+    icon: "🚀",
+    title: "SEO Optimization",
+    description:
+      "Improve your search rankings and drive more organic traffic with smart keyword strategies and on-page SEO.",
   },
 ];
 
-const Services = () => {
+function SortableCard({ service }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: service.id });
+  const style = {
+    transform: CSS.Transform.toString(
+      isDragging ? { ...transform, scaleX: 1.1, scaleY: 1.1 } : transform
+    ),
+    transition,
+    zIndex: isDragging ? 50 : "auto",
+  };
+
+  const cardClasses = `
+    bg-[#0b0f19] border border-purple-500 p-8 rounded-xl shadow-md transition-shadow
+    ${
+      isDragging
+        ? "shadow-[0_0_20px_rgba(192,132,252,0.6)]"
+        : "hover:shadow-[0_0_20px_rgba(192,132,252,0.6)] hover:scale-105"
+    }
+    cursor-grab active:cursor-grabbing
+  `;
+
   return (
-    <section className='py-20  px-6 bg-zinc-900 text-white'>
-      <div className='max-w-6xl mx-auto'>
-        <h2 className='text-blue-400 text-sm font-bold uppercase mb-6'>
-          Services
-        </h2>
-        <div className='grid md:grid-cols-3 gap-6'>
-          {services.map((service, i) => (
-            <motion.div
-              key={i}
-              className='bg-zinc-800 p-6 rounded-xl shadow hover:shadow-blue-500/30 transition'
-              whileHover={{ scale: 1.03 }}
-            >
-              <div className='text-4xl mb-4'>{service.icon}</div>
-              <h3 className='text-xl font-bold mb-2'>{service.title}</h3>
-              <p className='text-gray-400'>{service.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className={cardClasses.trim()}
+    >
+      <div className='text-5xl mb-4'>{service.icon}</div>
+      <h3 className='text-2xl font-bold mb-2 text-purple-300'>
+        {service.title}
+      </h3>
+      <p className='text-gray-400 text-sm'>{service.description}</p>
+    </div>
+  );
+}
+
+export default function ServicesCards() {
+  const [services, setServices] = useState(initialServices);
+
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
+    if (active.id !== over?.id) {
+      const oldIndex = services.findIndex((s) => s.id === active.id);
+      const newIndex = services.findIndex((s) => s.id === over?.id);
+      setServices((items) => arrayMove(items, oldIndex, newIndex));
+    }
+  };
+
+  return (
+    <section className='py-20 px-6 bg-transparent text-white text-center'>
+      <h2 className='text-4xl font-extrabold text-blue-600 mb-12'>
+        Our Services
+      </h2>
+      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext
+          items={services.map((s) => s.id)}
+          strategy={rectSortingStrategy}
+        >
+          <div className='grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-6xl mx-auto'>
+            {services.map((service) => (
+              <SortableCard key={service.id} service={service} />
+            ))}
+          </div>
+        </SortableContext>
+      </DndContext>
+      <div className='hidden shadow-[0_0_20px_rgba(192,132,252,0.6)]'></div>
     </section>
   );
-};
-export default Services;
+}

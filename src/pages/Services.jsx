@@ -8,7 +8,7 @@ export default function Services() {
     <div className='relative'>
       {/* Fixed Background Layer */}
       <div className='fixed inset-0 z-0'>
-        <div className='w-full h-full bg-gradient-to-b from-[#00001f] to-[#172d6d] absolute inset-0'></div>
+        <div className='w-full h-full bg-gradient-to-b from-[#00001f] to-[#0d1835] absolute inset-0'></div>
       </div>
 
       {/* Scrollable Foreground Scenes */}

@@ -23,7 +23,7 @@ export default function About() {
       animation: "fade-right",
     },
     {
-      name: "Rachel",
+      name: "Alex",
       title: "UI/UX Designer",
       description: "Crafts elegant and intuitive user experiences.",
       image: AlexImg,
@@ -85,6 +85,11 @@ export default function About() {
       </section>
 
       {/* Team Section */}
+      <div className='w-full md:w-1/2 text-center md:text-left pb-4 mx-auto'>
+        <h1 className='text-4xl font-extrabold text-center mb-6 text-blue-400 '>
+          Our Team
+        </h1>
+      </div>
       <section className='max-w-4xl mx-auto grid gap-16 sm:grid-cols-2 lg:grid-cols-3 text-center px-8'>
         {team.map(({ name, title, description, image, animation }) => (
           <div

@@ -90,6 +90,14 @@ export default function Services() {
           description='Ongoing support and updates keep your digital presence evolving.'
           image={support}
         />
+        <div className='text-center mt-24 rounded-2xl pb-24 max-w-[20rem] mx-auto'>
+          <a
+            href='/contact'
+            className='inline-block mt-4 px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl transition'
+          >
+            Email us!
+          </a>
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.jpg";
-import Contact from "./Contact";
+import ContactForm from "./ContactForm";
 import { useEffect, useState, useRef } from "react";
 
 const Header = () => {
@@ -115,7 +115,7 @@ const Header = () => {
 
               {isContactVisible && (
                 <div className='absolute right-0 mt-3 w-[350px] bg-[#0b0f19] border border-zinc-700 p-4 rounded-xl shadow-xl z-50'>
-                  <Contact />
+                  <ContactForm />
                 </div>
               )}
             </div>

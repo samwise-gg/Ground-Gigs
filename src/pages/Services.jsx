@@ -1,103 +1,133 @@
-import ScrollScene from "../components/ScrollScene";
+import React, { useRef, useEffect, useState } from "react";
+import { useScroll, useTransform, motion } from "framer-motion";
 import handshake from "../assets/scenes/handshake.png";
-import wireframe from "../assets/scenes/wireframe.gif";
-import coding from "../assets/scenes/coding.gif";
-import deploy from "../assets/scenes/deploy.gif";
-import grow from "../assets/scenes/grow.png";
-import support from "../assets/scenes/support.gif";
-import ServicesCards from "../components/ServicesCards";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useInView,
-} from "framer-motion";
-import { useRef } from "react";
 
 export default function Services() {
+  // Reference for scene 1
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
-  const opacity = useTransform(
+
+  // Debug state to display scroll progress
+  const [progress, setProgress] = useState(0);
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.onChange((val) => setProgress(val));
+    return unsubscribe;
+  }, [scrollYProgress]);
+
+  // Handshake image transforms: fade 0→1 at 0–0.2, hold until 0.8, fade out 0.8–1; exit y 0.8–1
+  const handOpacity = useTransform(
     scrollYProgress,
-    [0, 0.25, 0.75, 1],
+    [0, 0.2, 0.8, 1],
     [0, 1, 1, 0]
   );
-  const smoothOpacity = useSpring(opacity, { stiffness: 100, damping: 25 });
+  const handY = useTransform(scrollYProgress, [0.8, 1], [0, -200]);
+
+  // Title transforms: slide & overshoot 0.2–0.4, hold until 0.8, fade out 0.8–1; exit y 0.8–1
+  const titleX = useTransform(scrollYProgress, [0.2, 0.3, 0.4], [-250, 40, 0]);
+  const titleOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.199, 0.2, 0.8, 1],
+    [0, 0, 1, 1, 0]
+  );
+  const titleY = useTransform(scrollYProgress, [0.8, 1], [0, -200]);
+
+  // Description transforms: fade in 0.3–0.6, hold until 0.8, fade & exit 0.8–1
+  const descOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.4, 0.6, 0.8, 1],
+    [0, 0, 1, 1, 0]
+  );
+  const descY = useTransform(scrollYProgress, [0.8, 1], [0, -200]);
 
   return (
-    <div className='relative'>
-      {/* Fixed Background Layer */}
-      <div className='fixed inset-0 z-0'>
-        <div className='w-full h-full bg-gradient-to-b from-[#00001f] to-[#0d1835] absolute inset-0'></div>
-      </div>
+    <div>
+      {/* Top spacer so scene starts after initial scroll */}
+      <div style={{ height: "100vh" }} />
 
-      {/* Scrollable Foreground Scenes */}
-      <div className='relative z-10 text-white pt-36'>
-        <div className='pb-48 mb-40'>
-          <ServicesCards />
-        </div>
+      {/* Scene 1 section (300vh) */}
+      <section ref={ref} style={{ position: "relative", height: "300vh" }} />
 
-        {/* Pinned ScrollScene with bidirectional fade */}
-        <div className='relative min-h-[200vh]'>
-          <div
-            ref={ref}
-            className='sticky top-1/2 -translate-y-1/2 h-screen flex items-center justify-center'
-          >
-            <motion.div
-              style={{ y, opacity: smoothOpacity }}
-              className='w-full will-change-transform'
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <ScrollScene
-                title='It all starts with a conversation'
-                description='We begin by understanding your vision, your goals, and your audience.'
-                image={handshake}
-              />
-            </motion.div>
-          </div>
-        </div>
+      {/* Fixed content pinned to viewport center */}
+      <motion.div
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+        }}
+      >
+        {/* Handshake image */}
+        <motion.img
+          src={handshake}
+          alt='Handshake'
+          style={{
+            opacity: handOpacity,
+            y: handY,
+            width: 200,
+            height: "auto",
+            margin: "0 auto",
+          }}
+        />
 
-        <ScrollScene
-          title='We bring ideas to life'
-          description='Our team translates your goals into clean, strategic wireframes and layouts.'
-          image={wireframe}
-        />
-        <ScrollScene
-          title='We build and...'
-          description='Through design, code, and optimization, we launch a site that grows your business.'
-          image={coding}
-        />
-        <ScrollScene
-          title='Launch into the world'
-          description='We handle deployment with care — fast, secure, and scalable from day one.'
-          image={deploy}
-        />
-        <ScrollScene
-          title='Helping your business grow'
-          description='After launch, we focus on performance, analytics, and growth strategy.'
-          image={grow}
-        />
-        <ScrollScene
-          title='We’re here when you need us'
-          description='Ongoing support and updates keep your digital presence evolving.'
-          image={support}
-        />
-        <div className='text-center mt-24 rounded-2xl pb-24 max-w-[20rem] mx-auto'>
-          <a
-            href='/contact'
-            className='inline-block mt-4 px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-xl transition'
-          >
-            Email us!
-          </a>
-        </div>
+        {/* Title below handshake */}
+        <motion.h1
+          style={{
+            fontWeight: 700,
+
+            marginTop: 24,
+            fontSize: "2.4rem",
+            color: "#2563eb",
+            x: titleX,
+            opacity: titleOpacity,
+            y: titleY,
+            textAlign: "center",
+            maxWidth: "80vw",
+            margin: "24px auto 0",
+          }}
+        >
+          It all starts with a conversation
+        </motion.h1>
+
+        {/* Description under title */}
+        <motion.p
+          style={{
+            marginTop: 16,
+            fontSize: "1rem",
+            color: "#fff",
+            opacity: descOpacity,
+            y: descY,
+            textAlign: "center",
+            maxWidth: "20rem",
+            margin: "16px auto 0",
+          }}
+        >
+          We begin by understanding your vision, your goals, and your audience.
+        </motion.p>
+      </motion.div>
+
+      {/* Bottom spacer to allow full exit animations */}
+      <div style={{ height: "200vh" }} />
+
+      {/* Debug overlay showing real-time scroll progress */}
+      <div
+        style={{
+          position: "fixed",
+          bottom: 20,
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "rgba(0, 0, 0, 0.5)",
+          color: "#fff",
+          padding: "4px 8px",
+          borderRadius: "4px",
+          pointerEvents: "none",
+          fontFamily: "sans-serif",
+          fontSize: "0.875rem",
+        }}
+      >
+        Progress: {progress.toFixed(2)}
       </div>
     </div>
   );

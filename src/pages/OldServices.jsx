@@ -1,124 +1,183 @@
-import ScrollScene from "../components/ScrollScene";
+import React, { useRef, useEffect, useState } from "react";
+import { useScroll, useAnimation, motion } from "framer-motion";
 import handshake from "../assets/scenes/handshake.png";
-import wireframe from "../assets/scenes/wireframe.gif";
-import coding from "../assets/scenes/coding.gif";
-import deploy from "../assets/scenes/deploy.gif";
-import grow from "../assets/scenes/grow.png";
-import support from "../assets/scenes/support.gif";
-import ServicesCards from "../components/ServicesCards";
-import { motion } from "framer-motion";
 
 export default function Services() {
-  const fadeVariant = {
-    offscreen: { opacity: 0, y: 100 },
-    onscreen: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        bounce: 0.3,
-        duration: 1,
-      },
-    },
-  };
+  // Local state for debug overlay
+  const [progressVal, setProgressVal] = useState(0);
+
+  // Ref for scene scroll trigger
+  const ref1 = useRef(null);
+
+  // Scroll progress for scene
+  const { scrollYProgress } = useScroll({
+    target: ref1,
+    offset: ["start 50%", "end 50%"],
+  });
+
+  // Animation controls for handshake and title
+  const controls = useAnimation();
+  const controlsTitle = useAnimation();
+  const controlsDescription = useAnimation();
+
+  // Animation state refs to prevent retriggers
+  const animState = useRef("initial");
+  const animStateTitle = useRef("initial");
+  const animStateDescription = useRef("initial");
+
+  // Subscribe to scroll progress changes and trigger animations once per state change
+  useEffect(() => {
+    const unsubscribe = scrollYProgress.onChange((p) => {
+      setProgressVal(p);
+      // Handshake state machine
+      const newState = p >= 0.8 ? "exit" : p >= 0.2 ? "enter" : "initial";
+      if (newState !== animState.current) {
+        animState.current = newState;
+        if (newState === "enter")
+          controls.start({ opacity: 1, y: 0, transition: { duration: 1 } });
+        else if (newState === "exit")
+          controls.start({ opacity: 0, y: -200, transition: { duration: 1 } });
+        else controls.start({ opacity: 0, y: 0, transition: { duration: 1 } });
+      }
+      // Title state machine
+      const newTitleState = p >= 0.8 ? "exit" : p >= 0.3 ? "enter" : "initial";
+      if (newTitleState !== animStateTitle.current) {
+        animStateTitle.current = newTitleState;
+        if (newTitleState === "enter") {
+          controlsTitle.start({
+            opacity: 1,
+            x: 0,
+            y: 0,
+            transition: {
+              type: "spring",
+              stiffness: 80,
+              damping: 9,
+              bounce: 1,
+              duration: 1.5,
+            },
+          });
+        } else if (newTitleState === "exit") {
+          controlsTitle.start({
+            opacity: 0,
+            y: -200,
+            transition: { duration: 1 },
+          });
+        } else {
+          controlsTitle.start({
+            opacity: 0,
+            x: -450,
+            y: 0,
+            transition: { duration: 1 },
+          });
+        }
+      }
+      const newDescriptionState =
+        p >= 0.8 ? "exit" : p >= 0.5 ? "enter" : "initial";
+      if (newDescriptionState !== animStateDescription.current) {
+        animStateDescription.current = newDescriptionState;
+        if (newDescriptionState === "enter")
+          controlsDescription.start({
+            opacity: 1,
+            y: 0,
+            transition: { duration: 1 },
+          });
+        else if (newDescriptionState === "exit")
+          controlsDescription.start({
+            opacity: 0,
+            y: -200,
+            transition: { duration: 1 },
+          });
+        else
+          controlsDescription.start({
+            opacity: 0,
+            y: 0,
+            transition: { duration: 1 },
+          });
+      }
+    });
+    return () => unsubscribe();
+  }, [scrollYProgress, controls, controlsTitle, controlsDescription]);
 
   return (
-    <div className='relative'>
-      {/* Fixed Background Layer */}
-      <div className='fixed inset-0 z-0'>
-        <div className='w-full h-full bg-gradient-to-b from-[#00001f] to-[#0d1835] absolute inset-0'></div>
-      </div>
+    <div>
+      {/* Top spacer: initial viewport-height */}
+      <div style={{ height: "100vh" }} />
 
-      {/* Scrollable Foreground Scenes */}
-      <div className='relative z-10 text-white pt-36'>
-        <div className='pb-48 mb-40'>
-          <ServicesCards />
-        </div>
+      {/* Scroll trigger region: 300vh */}
+      <section ref={ref1} style={{ position: "relative", height: "300vh" }} />
 
-        {/* Scroll-animated Scene using motion.div */}
-        <motion.div
-          className='w-full flex justify-center items-center mb-60'
-          initial='offscreen'
-          whileInView='onscreen'
-          viewport={{ once: false, amount: 0.5 }}
-          variants={fadeVariant}
+      {/* Fixed handshake and title centered with timed animations */}
+      <motion.div
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: 0,
+          right: 0,
+          transform: "translateY(-50%)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <motion.img
+          src={handshake}
+          alt='Handshake'
+          initial={{ opacity: 0, y: 0 }}
+          animate={controls}
+          style={{ width: "200px", height: "auto" }}
+        />
+        <motion.h1
+          initial={{ opacity: 0, x: -250, y: 0 }}
+          animate={controlsTitle}
+          style={{
+            marginTop: 24,
+            fontSize: "2rem",
+            color: "#0959a1",
+            textAlign: "center",
+            maxWidth: "80vw",
+            margin: "24px auto 0",
+          }}
         >
-          <ScrollScene
-            title='It all starts with a conversation'
-            description='We begin by understanding your vision, your goals, and your audience.'
-            image={handshake}
-          />
-        </motion.div>
-
-        <motion.div
-          className='w-full flex justify-center items-center mb-60'
-          initial='offscreen'
-          whileInView='onscreen'
-          viewport={{ once: false, amount: 0.5 }}
-          variants={fadeVariant}
+          It all starts with a conversation
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0, x: 0, y: 0 }}
+          animate={controlsDescription}
+          style={{
+            marginTop: 2,
+            fontSize: "1rem",
+            textAlign: "center",
+            maxWidth: "40vw",
+            margin: "24px auto 0",
+          }}
         >
-          <ScrollScene
-            title='We bring ideas to life'
-            description='Our team translates your goals into clean, strategic wireframes and layouts.'
-            image={wireframe}
-          />
-        </motion.div>
+          Lorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem
+          ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem
+          ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem ipsumLorem
+          ipsumLorem ipsumLorem ipsum
+        </motion.p>
+      </motion.div>
 
-        <motion.div
-          className='w-full flex justify-center items-center mb-60'
-          initial='offscreen'
-          whileInView='onscreen'
-          viewport={{ once: false, amount: 0.5 }}
-          variants={fadeVariant}
-        >
-          <ScrollScene
-            title='We build and...'
-            description='Through design, code, and optimization, we launch a site that grows your business.'
-            image={coding}
-          />
-        </motion.div>
+      {/* Bottom spacer: extra scroll length */}
+      <div style={{ height: "200vh" }} />
 
-        <motion.div
-          className='w-full flex justify-center items-center mb-60'
-          initial='offscreen'
-          whileInView='onscreen'
-          viewport={{ once: false, amount: 0.5 }}
-          variants={fadeVariant}
-        >
-          <ScrollScene
-            title='Launch into the world'
-            description='We handle deployment with care — fast, secure, and scalable from day one.'
-            image={deploy}
-          />
-        </motion.div>
-
-        <motion.div
-          className='w-full flex justify-center items-center mb-60'
-          initial='offscreen'
-          whileInView='onscreen'
-          viewport={{ once: false, amount: 0.5 }}
-          variants={fadeVariant}
-        >
-          <ScrollScene
-            title='Helping your business grow'
-            description='After launch, we focus on performance, analytics, and growth strategy.'
-            image={grow}
-          />
-        </motion.div>
-
-        <motion.div
-          className='w-full flex justify-center items-center mb-60'
-          initial='offscreen'
-          whileInView='onscreen'
-          viewport={{ once: false, amount: 0.5 }}
-          variants={fadeVariant}
-        >
-          <ScrollScene
-            title='We’re here when you need us'
-            description='Ongoing support and updates keep your digital presence evolving.'
-            image={support}
-          />
-        </motion.div>
+      {/* Debug overlay */}
+      <div
+        style={{
+          position: "fixed",
+          bottom: 20,
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "rgba(0, 0, 0, 0.5)",
+          color: "#fff",
+          padding: "4px 8px",
+          borderRadius: 4,
+          pointerEvents: "none",
+          fontFamily: "sans-serif",
+          fontSize: "0.875rem",
+        }}
+      >
+        Progress: {progressVal.toFixed(2)}
       </div>
     </div>
   );

@@ -85,7 +85,7 @@ const Header = () => {
               className='text-[#0563ba] font-bold relative group'
             >
               <span className='inline-block transition-transform duration-200 group-hover:-translate-y-1'>
-                Services
+                Scrollytelling
               </span>
               <span className='block h-[2px] w-0 bg-[#0563ba] transition-all duration-300 group-hover:w-full'></span>
             </Link>

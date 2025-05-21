@@ -47,7 +47,7 @@ const tiers = [
 
 export default function TierPlans() {
   return (
-    <section className='w-full py-36 px-6 bg-gradient-to-b from-[#00001f] to-purple-900 text-white text-center'>
+    <section className='w-full py-44 px-6 bg-gradient-to-b from-[#ffffff00] to-purple-900 text-white text-center'>
       <h2 className='text-4xl font-bold mb-4 text-blue-400'>
         Choose Your Plan
       </h2>

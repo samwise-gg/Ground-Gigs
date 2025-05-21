@@ -22,7 +22,7 @@ const Header = () => {
   const handleMouseLeave = () => {
     timeoutRef.current = setTimeout(() => {
       setIsHovering(false);
-    }, 150);
+    }, 1);
   };
 
   useEffect(() => {

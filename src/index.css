@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Swiper arrow custom styles */
+.swiper-button-next,
+.swiper-button-prev {
+  @apply bg-[#111827db] text-purple-300 p-6 rounded-full shadow-xl w-10 h-10 flex items-center justify-center hover:bg-purple-300 hover:text-gray-600;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 16px;
+  font-weight: bold;
+}

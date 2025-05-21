@@ -7,28 +7,30 @@ import {
   rectSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import logo from "../assets/logo.jpg";
+import { Link } from "react-router-dom";
 
 const initialServices = [
   {
     id: "web",
-    icon: "💻",
-    title: "Web Design",
+    icon: "🚀",
+    title: "Launch-Ready Simplicity",
     description:
-      "Custom-crafted websites that reflect your brand's identity, optimized for performance and user engagement.",
+      "We deliver clean, fast-loading, launch-ready sites that require zero tech knowledge to manage.",
   },
   {
     id: "responsive",
-    icon: "📱",
-    title: "Responsive Development",
+    icon: "🧩",
+    title: "Pixel-Perfect Quality",
     description:
-      "Ensuring seamless experiences across all devices with mobile-first, fully responsive layouts.",
+      "Every site is hand-crafted with attention to design, performance, and accessibility.",
   },
   {
     id: "seo",
-    icon: "🚀",
-    title: "SEO Optimization",
+    icon: "📞",
+    title: "Reliable Communication",
     description:
-      "Improve your search rankings and drive more organic traffic with smart keyword strategies and on-page SEO.",
+      "We prioritize clarity, updates, and fast response times to make your project stress-free.",
   },
 ];
 
@@ -89,10 +91,8 @@ export default function ServicesCards() {
   };
 
   return (
-    <section className='py-20 px-6 bg-transparent text-white text-center'>
-      <h2 className='text-4xl font-extrabold text-blue-600 mb-12'>
-        Our Services
-      </h2>
+    <section className='pb-20 px-6 bg-[#00001f] text-white text-center'>
+      {/* <h2 className='text-7xl font-bold text-blue-600 mb-12'>G G</h2> */}
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext
           items={services.map((s) => s.id)}

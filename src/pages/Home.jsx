@@ -1,6 +1,10 @@
 import { Link } from "react-router-dom";
 import Hero from "../components/Hero";
-import ServicesCards from "../components/ServicesCards";
+import ServicesCards from "../components/WhyChooseUs";
+import logo from "../assets/logo.jpg";
+// import ServicesCarousel from "../components/ServicesCarousel";
+import ServicesCarousel from "../components/OldServicesCarousel";
+import TierPlans from "../components/TierPlans";
 
 export default function Home() {
   return (
@@ -23,8 +27,22 @@ export default function Home() {
           </button>
         </Link>
       </section>
+      <h2 className='text-[1.4rem] sm:text-[2.5rem] font-bold text-center mb-4 text-purple-300'>
+        Explore the Possibilities
+      </h2>
+      <ServicesCarousel />
+      <div className='mt-20 max-w-fit mx-auto group transition-all duration-300'>
+        <img
+          src={logo}
+          alt='Ground Gigs'
+          className='group transition-all duration-300 h-[6.5rem] group-hover:animate-spin-once  transition-transform duration-500 ease-in-out'
+        />
+      </div>
+      <h2 className='text-center mt-10 mb-4 text-purple-300 text-[1.4rem] font-bold'>
+        Why Choose Us?
+      </h2>
       <ServicesCards />
-      <div className='mb-24'></div>
+      <TierPlans />
     </>
   );
 }
